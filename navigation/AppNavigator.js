@@ -6,8 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import SignUpScreen from "../screens/Auth/SignUpScreen";
 import HomeScreen from "../screens/HomeScreen";
-import RideRequestScreen from "../screens/RideRequestScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -18,11 +17,11 @@ export default function AppNavigator() {
         {/* Auth Screens */}
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="AddWorkout" component={AddWorkoutScreen} />
 
         {/* Main App Screens */}
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="RideRequest" component={RideRequestScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
