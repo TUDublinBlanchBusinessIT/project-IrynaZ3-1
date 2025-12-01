@@ -4,12 +4,20 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 export default function SignupScreen({ navigation }) {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const signup = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+    if (!email || !password) {
+      alert("Enter email and password");
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email.trim(), password)
+      .then(() => {
+        // Go to AddWorkout tab
+        navigation.navigate("AppTabs", { startScreen: "Add Workout" });
+      })
       .catch((err) => alert(err.message));
   };
 
@@ -22,6 +30,8 @@ export default function SignupScreen({ navigation }) {
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="#aaa"
+        autoCapitalize="none"
+        keyboardType="email-address"
         value={email}
         onChangeText={setEmail}
       />
@@ -42,7 +52,6 @@ export default function SignupScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={styles.link}>Already have an account?</Text>
       </TouchableOpacity>
-
     </View>
   );
 }

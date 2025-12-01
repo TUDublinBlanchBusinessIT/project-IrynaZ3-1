@@ -18,9 +18,13 @@ import AchievementsScreen from "./screens/AchievementsScreen";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function AppTabs() {
+function AppTabs({ route }) {
+  // Received from Login or Signup
+  const startScreen = route?.params?.startScreen || "Home";
+
   return (
     <Tab.Navigator
+      initialRouteName={startScreen}
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: "#7F5AF0",

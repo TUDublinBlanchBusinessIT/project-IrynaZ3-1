@@ -4,13 +4,21 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 export default function LoginScreen({ navigation }) {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const login = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .catch(() => alert("Invalid login details"));
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
+    signInWithEmailAndPassword(auth, email.trim(), password)
+      .then(() => {
+        // Go to Steps tab
+        navigation.navigate("AppTabs", { startScreen: "Steps" });
+      })
+      .catch((err) => alert(err.message));
   };
 
   return (
@@ -22,8 +30,10 @@ export default function LoginScreen({ navigation }) {
         style={styles.input}
         placeholder="Email"
         placeholderTextColor="#aaa"
-        onChangeText={setEmail}
+        autoCapitalize="none"
+        keyboardType="email-address"
         value={email}
+        onChangeText={setEmail}
       />
 
       <TextInput
@@ -31,8 +41,8 @@ export default function LoginScreen({ navigation }) {
         placeholder="Password"
         placeholderTextColor="#aaa"
         secureTextEntry
-        onChangeText={setPassword}
         value={password}
+        onChangeText={setPassword}
       />
 
       <TouchableOpacity style={styles.button} onPress={login}>
@@ -42,7 +52,6 @@ export default function LoginScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
         <Text style={styles.link}>Create an account</Text>
       </TouchableOpacity>
-
     </View>
   );
 }

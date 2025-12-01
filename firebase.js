@@ -8,9 +8,9 @@ const firebaseConfig = {
   projectId: "project-irynaz3-1-1e370",
   storageBucket: "project-irynaz3-1-1e370.firebasestorage.app",
   messagingSenderId: "806653304212",
-  appId: "1:806653304212:web:21c2b4f76458ff5a478381"
+  appId: "1:806653304212:web:21c2b4f76458ff5a478381",
+  measurementId: "G-MYKV4V74JE"
 };
-
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
